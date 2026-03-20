@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { theme } from '@/lib/theme';
-import type { Platform } from '@/data/projects';
+import { useRef } from "react";
+import styled, { keyframes } from "styled-components";
+import { theme } from "@/lib/theme";
+import type { Platform } from "@/data/projects";
 
 const float = keyframes`
   0%, 100% { transform: translateY(0px); }
@@ -26,7 +26,11 @@ const PhoneGlow = styled.div<{ $color: string }>`
   position: absolute;
   inset: -20px;
   border-radius: 60px;
-  background: radial-gradient(ellipse at center, ${({ $color }) => $color}22 0%, transparent 70%);
+  background: radial-gradient(
+    ellipse at center,
+    ${({ $color }) => $color}22 0%,
+    transparent 70%
+  );
   z-index: 0;
   transition: all 0.4s ease;
 `;
@@ -35,12 +39,14 @@ const PhoneFrame = styled.div<{ $isIos: boolean; $color: string }>`
   position: relative;
   width: 200px;
   height: 410px;
-  border-radius: ${({ $isIos }) => ($isIos ? '44px' : '28px')};
+  border-radius: ${({ $isIos }) => ($isIos ? "44px" : "28px")};
   background: #1a1a24;
   border: 3px solid #2a2a3a;
   overflow: hidden;
   z-index: 1;
-  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+  transition:
+    transform 0.15s ease-out,
+    box-shadow 0.3s ease;
   will-change: transform;
 
   &:hover {
@@ -49,7 +55,7 @@ const PhoneFrame = styled.div<{ $isIos: boolean; $color: string }>`
 
   /* Side buttons */
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     right: -6px;
     top: 100px;
@@ -60,7 +66,7 @@ const PhoneFrame = styled.div<{ $isIos: boolean; $color: string }>`
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     left: -6px;
     top: 80px;
@@ -83,20 +89,10 @@ const Notch = styled.div<{ $isIos: boolean }>`
   transform: translateX(-50%);
   z-index: 3;
 
-  ${({ $isIos }) =>
-    $isIos
-      ? `
-    width: 90px;
-    height: 22px;
-    background: #1a1a24;
-    border-radius: 0 0 16px 16px;
-  `
-      : `
-    width: 12px;
-    height: 12px;
-    background: #2a2a3a;
-    border-radius: 50%;
-  `}
+  width: 12px;
+  height: 12px;
+  background: #2a2a3a;
+  border-radius: 50%;
 `;
 
 const Screen = styled.div`
@@ -135,7 +131,7 @@ const BottomPill = styled.div<{ $isIos: boolean }>`
   bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
-  width: ${({ $isIos }) => ($isIos ? '100px' : '80px')};
+  width: ${({ $isIos }) => ($isIos ? "100px" : "80px")};
   height: 4px;
   background: #3a3a4a;
   border-radius: 2px;
@@ -158,9 +154,15 @@ interface PhoneMockupProps {
   screenshotUrl?: string;
 }
 
-export default function PhoneMockup({ platform, accentColor, appId, index, screenshotUrl }: PhoneMockupProps) {
+export default function PhoneMockup({
+  platform,
+  accentColor,
+  appId,
+  index,
+  screenshotUrl,
+}: PhoneMockupProps) {
   const frameRef = useRef<HTMLDivElement>(null);
-  const isIos = platform === 'ios' || (platform === 'both' && index % 2 === 0);
+  const isIos = platform === "ios" || (platform === "both" && index % 2 === 0);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const frame = frameRef.current;
@@ -173,7 +175,7 @@ export default function PhoneMockup({ platform, accentColor, appId, index, scree
 
   const handleMouseLeave = () => {
     const frame = frameRef.current;
-    if (frame) frame.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    if (frame) frame.style.transform = "rotateY(0deg) rotateX(0deg)";
   };
 
   return (
@@ -193,9 +195,9 @@ export default function PhoneMockup({ platform, accentColor, appId, index, scree
           <Screen>
             <PlaceholderCircle />
             <PlaceholderShimmer />
-            <PlaceholderShimmer style={{ width: '60%' }} />
-            <PlaceholderShimmer style={{ width: '70%', marginTop: '20px' }} />
-            <PlaceholderShimmer style={{ width: '50%' }} />
+            <PlaceholderShimmer style={{ width: "60%" }} />
+            <PlaceholderShimmer style={{ width: "70%", marginTop: "20px" }} />
+            <PlaceholderShimmer style={{ width: "50%" }} />
           </Screen>
         )}
         <BottomPill $isIos={isIos} />

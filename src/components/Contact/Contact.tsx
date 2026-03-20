@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import styled from 'styled-components';
-import { theme } from '@/lib/theme';
-import { SectionWrapper, SectionTitle } from '@/components/shared/Section';
-import AnimatedReveal from '@/components/shared/AnimatedReveal';
+import styled from "styled-components";
+import { theme } from "@/lib/theme";
+import { SectionWrapper, SectionTitle } from "@/components/shared/Section";
+import AnimatedReveal from "@/components/shared/AnimatedReveal";
 
 const ContactText = styled.p`
   font-size: 18px;
@@ -48,19 +48,25 @@ export default function Contact() {
       </AnimatedReveal>
       <AnimatedReveal delay={0.1}>
         <ContactText>
-          Interested in working together or have a question about one of my apps?
-          Feel free to reach out through any of the channels below.
+          Interested in working together or have a question about one of my
+          apps? Feel free to reach out through any of the channels below.
         </ContactText>
       </AnimatedReveal>
       <AnimatedReveal delay={0.2}>
         <LinksRow>
-          <ContactLink href="mailto:hello@emilakerman.dev">
-            Email
-          </ContactLink>
-          <ContactLink href="https://github.com/emilakerman" target="_blank" rel="noopener noreferrer">
+          <ContactLink href="mailto:dev@emilakerman.com">Email</ContactLink>
+          <ContactLink
+            href="https://github.com/emilakerman"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             GitHub
           </ContactLink>
-          <ContactLink href="https://linkedin.com/in/emilakerman" target="_blank" rel="noopener noreferrer">
+          <ContactLink
+            href="https://linkedin.com/in/emilakerman"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             LinkedIn
           </ContactLink>
         </LinksRow>
