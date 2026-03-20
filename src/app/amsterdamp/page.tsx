@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { motion } from 'framer-motion';
-import { theme } from '@/lib/theme';
+import { useState, useEffect, useCallback } from "react";
+import styled, { keyframes } from "styled-components";
+import { motion } from "framer-motion";
+import { theme } from "@/lib/theme";
 
-type City = 'hamburg' | 'berlin';
+type City = "hamburg" | "berlin";
 
 interface PollData {
   hamburg: number;
@@ -16,12 +16,12 @@ export default function AmsterdampPage() {
   const [votes, setVotes] = useState<PollData>({ hamburg: 0, berlin: 0 });
   const [voted, setVoted] = useState<City | null>(null);
   const [cooldown, setCooldown] = useState(0);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const fetchVotes = useCallback(async () => {
     try {
-      const res = await fetch('/api/poll');
+      const res = await fetch("/api/poll");
       if (res.ok) {
         const data = await res.json();
         setVotes({ hamburg: data.hamburg, berlin: data.berlin });
@@ -53,12 +53,12 @@ export default function AmsterdampPage() {
   const handleVote = async (city: City) => {
     if (cooldown > 0 || loading) return;
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
-      const res = await fetch('/api/poll', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/poll", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ city }),
       });
 
@@ -66,14 +66,14 @@ export default function AmsterdampPage() {
 
       if (res.status === 429) {
         setCooldown(data.retryAfter || 60);
-        setError('Wait a bit before voting again!');
+        setError("Wait a bit before voting again!");
       } else if (res.ok) {
         setVotes({ hamburg: data.hamburg, berlin: data.berlin });
         setVoted(city);
         setCooldown(60);
       }
     } catch {
-      setError('Something went wrong. Try again.');
+      setError("Something went wrong. Try again.");
     } finally {
       setLoading(false);
     }
@@ -91,14 +91,14 @@ export default function AmsterdampPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <Title>Where should I move?</Title>
-        <Subtitle>Help me decide — cast your vote!</Subtitle>
+        <Title>VAR SKA VI?</Title>
+        <Subtitle>RÖSTA!</Subtitle>
 
         <PollContainer>
           <VoteOption
-            onClick={() => handleVote('hamburg')}
+            onClick={() => handleVote("hamburg")}
             $disabled={cooldown > 0 || loading}
-            $selected={voted === 'hamburg'}
+            $selected={voted === "hamburg"}
             as={motion.button}
             whileHover={cooldown > 0 ? {} : { scale: 1.02 }}
             whileTap={cooldown > 0 ? {} : { scale: 0.98 }}
@@ -111,9 +111,9 @@ export default function AmsterdampPage() {
           <VsLabel>VS</VsLabel>
 
           <VoteOption
-            onClick={() => handleVote('berlin')}
+            onClick={() => handleVote("berlin")}
             $disabled={cooldown > 0 || loading}
-            $selected={voted === 'berlin'}
+            $selected={voted === "berlin"}
             as={motion.button}
             whileHover={cooldown > 0 ? {} : { scale: 1.02 }}
             whileTap={cooldown > 0 ? {} : { scale: 0.98 }}
@@ -134,15 +134,15 @@ export default function AmsterdampPage() {
             <BarTrack>
               <BarFillHamburg
                 as={motion.div}
-                initial={{ width: '50%' }}
+                initial={{ width: "50%" }}
                 animate={{ width: `${hamburgPct}%` }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
               />
               <BarFillBerlin
                 as={motion.div}
-                initial={{ width: '50%' }}
+                initial={{ width: "50%" }}
                 animate={{ width: `${berlinPct}%` }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
               />
             </BarTrack>
             <BarLabels>
@@ -154,14 +154,10 @@ export default function AmsterdampPage() {
         )}
 
         {cooldown > 0 && (
-          <CooldownText>
-            You can vote again in {cooldown}s
-          </CooldownText>
+          <CooldownText>You can vote again in {cooldown}s</CooldownText>
         )}
 
         {error && <ErrorText>{error}</ErrorText>}
-
-        <BackLink href="/">← Back to portfolio</BackLink>
       </Content>
     </PageWrapper>
   );
@@ -172,7 +168,7 @@ const PageWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: ${theme.spacing['2xl']};
+  padding: ${theme.spacing["2xl"]};
   background: ${theme.colors.bg};
 `;
 
@@ -185,7 +181,11 @@ const Content = styled.div`
 const Title = styled.h1`
   font-size: ${theme.fontSize.hero};
   font-weight: 700;
-  background: linear-gradient(135deg, ${theme.colors.accent}, ${theme.colors.accentLight});
+  background: linear-gradient(
+    135deg,
+    ${theme.colors.accent},
+    ${theme.colors.accentLight}
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -199,7 +199,7 @@ const Title = styled.h1`
 const Subtitle = styled.p`
   color: ${theme.colors.textMuted};
   font-size: ${theme.fontSize.body};
-  margin-bottom: ${theme.spacing['2xl']};
+  margin-bottom: ${theme.spacing["2xl"]};
 `;
 
 const PollContainer = styled.div`
@@ -223,16 +223,20 @@ const VoteOption = styled.button<{ $disabled: boolean; $selected: boolean }>`
   flex: 1;
   background: ${({ $selected }) =>
     $selected ? `${theme.colors.accent}15` : theme.colors.bgCard};
-  border: 2px solid ${({ $selected }) =>
-    $selected ? theme.colors.accent : theme.colors.border};
+  border: 2px solid
+    ${({ $selected }) =>
+      $selected ? theme.colors.accent : theme.colors.border};
   border-radius: ${theme.radius.lg};
   padding: ${theme.spacing.xl} ${theme.spacing.lg};
-  cursor: ${({ $disabled }) => ($disabled ? 'not-allowed' : 'pointer')};
+  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
   opacity: ${({ $disabled }) => ($disabled ? 0.6 : 1)};
-  transition: border-color 0.2s, background 0.2s, opacity 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    opacity 0.2s;
   width: 100%;
   font-family: inherit;
-  animation: ${({ $selected }) => ($selected ? pulse : 'none')} 2s infinite;
+  animation: ${({ $selected }) => ($selected ? pulse : "none")} 2s infinite;
 
   &:hover {
     border-color: ${({ $disabled }) =>
