@@ -103,7 +103,7 @@ export default function AmsterdampPage() {
             whileHover={cooldown > 0 ? {} : { scale: 1.02 }}
             whileTap={cooldown > 0 ? {} : { scale: 0.98 }}
           >
-            <CityEmoji>🏗️</CityEmoji>
+            <CityEmoji>🍔</CityEmoji>
             <CityName>Hamburg</CityName>
             <VoteCount>{votes.hamburg} votes</VoteCount>
           </VoteOption>
@@ -118,7 +118,7 @@ export default function AmsterdampPage() {
             whileHover={cooldown > 0 ? {} : { scale: 1.02 }}
             whileTap={cooldown > 0 ? {} : { scale: 0.98 }}
           >
-            <CityEmoji>🐻</CityEmoji>
+            <CityEmoji>🍻</CityEmoji>
             <CityName>Berlin</CityName>
             <VoteCount>{votes.berlin} votes</VoteCount>
           </VoteOption>
